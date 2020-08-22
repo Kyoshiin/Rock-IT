@@ -28,12 +28,15 @@ class GameLogic {
   void setHand(int imageno) {
     _playerhand = imageno;
     _cpuhand = new Random().nextInt(3) + 1;
+    calculateScore();
   }
 
   void calculateScore() {
-    if ((_cpuhand % 3) + 1 == _playerhand)
-      _cpuScore++;
-    else
-      _playerScore++;
+    if (_cpuhand != _playerhand) {
+      if ((_cpuhand % 3) + 1 == _playerhand)
+        _cpuScore++;
+      else
+        _playerScore++;
+    }
   }
 }

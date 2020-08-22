@@ -83,8 +83,6 @@ class _GamePageState extends State<GamePage> {
             currentgame.setHand(imageno);
             curCpuScore = currentgame.getCpuScore();
             curPlayerScore = currentgame.getPlayerScore();
-//            print(currentgame.getCpuScore());
-//            print(currentgame.getPlayerScore());
           },
         );
       },
