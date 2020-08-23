@@ -10,7 +10,12 @@ class GameLogic {
   int _playerScore = 0;
 
   Image getCpuhand() {
-    return Image.asset("images/$_cpuhand.png", width: 150.0, height: 150.0);
+    return Image.asset(
+      "images/$_cpuhand.png",
+      width: 120,
+      height: 120,
+      fit: BoxFit.cover,
+    );
   }
 
   int getCpuScore() {
@@ -18,7 +23,11 @@ class GameLogic {
   }
 
   Image getPlayerhand() {
-    return Image.asset("images/$_playerhand.png", width: 150.0, height: 150.0);
+    return Image.asset(
+      "images/$_playerhand.png",
+      width: 120,
+      height: 120,
+    );
   }
 
   int getPlayerScore() {
@@ -38,5 +47,9 @@ class GameLogic {
       else
         _playerScore++;
     }
+  }
+
+  void reset() {
+    _cpuScore = _playerScore = 0;
   }
 }

@@ -11,9 +11,16 @@ class Stone extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.green[400],
+        appBar: AppBar(
+          backgroundColor: Colors.blue[900],
+          title: Text("Rock It"),
+        ),
+        backgroundColor: Colors.blue,
         body: SafeArea(
-          child: GamePage(),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GamePage(),
+          ),
         ),
       ),
     );
@@ -34,58 +41,76 @@ class _GamePageState extends State<GamePage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         // CPU HAND
-        Center(
-          child: currentgame.getCpuhand(),
+        Expanded(
+          flex: 2,
+          child: CircleAvatar(
+            radius: 80,
+            backgroundColor: Colors.white,
+            child: ClipOval(
+              child: currentgame.getCpuhand(),
+            ),
+          ),
         ),
 
         // SCORE BOARD
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 70, horizontal: 0),
+        Expanded(
+          flex: 1,
           child: Center(
             child: Text(
               "CPU - YOU\n$curCpuScore   -   $curPlayerScore",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 40,
-                color: Colors.white,
+                fontSize: 30,
+                color: Colors.black,
               ),
             ),
           ),
         ),
 
         //PLAYER'S HAND
-        Column(
-          children: <Widget>[
-            Center(
-              child: currentgame.getPlayerhand(),
-            ),
-            SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                createbtn(1),
-                createbtn(2),
-                createbtn(3),
-              ],
-            )
-          ],
+        Expanded(
+          flex: 3,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 80,
+                child: ClipOval(
+                  child: currentgame.getPlayerhand(),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  createbtn(1),
+                  createbtn(2),
+                  createbtn(3),
+                ],
+              )
+            ],
+          ),
         ),
       ],
     );
   }
 
-  FlatButton createbtn(int imageno) {
-    return FlatButton(
-      child: Image.asset("images/$imageno.png", height: 100, width: 80),
-      onPressed: () {
-        setState(
-          () {
-            currentgame.setHand(imageno);
-            curCpuScore = currentgame.getCpuScore();
-            curPlayerScore = currentgame.getPlayerScore();
-          },
-        );
-      },
+  Widget createbtn(int imageno) {
+    return CircleAvatar(
+      radius: 50,
+      backgroundColor: Colors.white,
+      child: FlatButton(
+        child: Image.asset("images/$imageno.png"),
+        onPressed: () {
+          setState(
+            () {
+              currentgame.setHand(imageno);
+              curCpuScore = currentgame.getCpuScore();
+              curPlayerScore = currentgame.getPlayerScore();
+            },
+          );
+        },
+      ),
     );
   }
 }
