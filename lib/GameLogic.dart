@@ -12,9 +12,8 @@ class GameLogic {
   Image getCpuhand() {
     return Image.asset(
       "images/$_cpuhand.png",
-      width: 120,
-      height: 120,
-      fit: BoxFit.cover,
+      width: 90,
+      height: 90,
     );
   }
 
@@ -25,8 +24,8 @@ class GameLogic {
   Image getPlayerhand() {
     return Image.asset(
       "images/$_playerhand.png",
-      width: 120,
-      height: 120,
+      width: 90,
+      height: 90,
     );
   }
 
@@ -51,5 +50,6 @@ class GameLogic {
 
   void reset() {
     _cpuScore = _playerScore = 0;
+    _cpuhand = _playerhand = 1;
   }
 }
