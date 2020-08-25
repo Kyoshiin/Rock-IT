@@ -24,10 +24,12 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  int curCpuScore = 0;
-  int curPlayerScore = 0;
+  double height, width;
+
   @override
   Widget build(BuildContext context) {
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
@@ -41,7 +43,6 @@ class _GamePageState extends State<GamePage> {
             ),
             onPressed: () {
               setState(() {
-                curCpuScore = curPlayerScore = 0;
                 currentgame.reset();
               });
             },
@@ -65,7 +66,7 @@ class _GamePageState extends State<GamePage> {
               Expanded(
                 flex: 2,
                 child: CircleAvatar(
-                  radius: 70,
+                  radius: 0.17 * width,
                   backgroundColor: Colors.white,
                   child: ClipOval(
                     child: currentgame.getCpuhand(),
@@ -74,86 +75,19 @@ class _GamePageState extends State<GamePage> {
               ),
 
               // SCORE BOARD
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(100, 0, 0, 0),
-                  child: Row(children: <Widget>[
-                    //CPU SIDE
-                    Container(
-                      color: Colors.blueGrey,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            color: Colors.black,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 28.0, vertical: 4),
-                              child: Text(
-                                "CPU",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            child: Text(
-                              "$curCpuScore",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 1,
-                      color: Colors.white,
-                    ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0.26 * width, 0, 0, 0),
+                child: Row(children: <Widget>[
+                  //CPU SIDE
+                  buildScoreBoard("CPU", currentgame.getCpuScore()),
 
-                    //player side
-                    Container(
-                      color: Colors.blueGrey,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            color: Colors.black,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 28.0, vertical: 4),
-                              child: Text(
-                                "YOU",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            child: Text(
-                              "$curPlayerScore",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ]),
-                ),
+                  Container(
+                    width: 1,
+                  ),
+
+                  //player side
+                  buildScoreBoard("YOU", currentgame.getPlayerScore())
+                ]),
               ),
 
               //PLAYER'S HAND
@@ -164,7 +98,7 @@ class _GamePageState extends State<GamePage> {
                   children: <Widget>[
                     CircleAvatar(
                       backgroundColor: Colors.white,
-                      radius: 70,
+                      radius: 0.17 * width,
                       child: ClipOval(
                         child: currentgame.getPlayerhand(),
                       ),
@@ -187,9 +121,45 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
+  Widget buildScoreBoard(String nm, int score) {
+    return Container(
+      color: Colors.blueGrey,
+      child: Column(
+        children: <Widget>[
+          Container(
+            color: Colors.black,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: 0.07 * width, vertical: 0.005 * height),
+              child: Text(
+                nm,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 0.025 * height,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 0.02 * height),
+            child: Text(
+              "$score",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 0.05 * height,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget createbtn(int imageno) {
     return CircleAvatar(
-      radius: 40,
+      radius: 0.1 * width,
       backgroundColor: Colors.white,
       child: FlatButton(
         shape: CircleBorder(side: BorderSide(color: Colors.transparent)),
@@ -198,8 +168,6 @@ class _GamePageState extends State<GamePage> {
           setState(
             () {
               currentgame.setHand(imageno);
-              curCpuScore = currentgame.getCpuScore();
-              curPlayerScore = currentgame.getPlayerScore();
             },
           );
         },
