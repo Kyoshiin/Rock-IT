@@ -1,4 +1,4 @@
-name: RockIt
+name: stone_paper_scissor
 description: A stone paper scissor game app
 
 # The following line prevents the package from being accidentally published to
