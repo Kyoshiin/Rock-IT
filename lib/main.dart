@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:stone_paper_scissor/GameLogic.dart';
+import 'package:RockIt/GameLogic.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 GameLogic currentgame = GameLogic();
 
@@ -25,6 +26,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   double height, width;
+  final player = AudioCache();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class _GamePageState extends State<GamePage> {
             onPressed: () {
               setState(() {
                 currentgame.reset();
+                player.play('clean.mp3');
               });
             },
           ),
@@ -66,7 +69,7 @@ class _GamePageState extends State<GamePage> {
               Expanded(
                 flex: 2,
                 child: CircleAvatar(
-                  radius: 0.17 * width,
+                  radius: 0.16 * width,
                   backgroundColor: Colors.white,
                   child: ClipOval(
                     child: currentgame.getCpuhand(),
@@ -168,6 +171,7 @@ class _GamePageState extends State<GamePage> {
           setState(
             () {
               currentgame.setHand(imageno);
+              player.play('tap.wav');
             },
           );
         },
