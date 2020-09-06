@@ -46,7 +46,7 @@ class _GamePageState extends State<GamePage> {
             onPressed: () {
               setState(() {
                 currentgame.reset();
-                player.play('clean.mp3');
+                player.play('clean.aiff');
               });
             },
           ),
@@ -78,20 +78,19 @@ class _GamePageState extends State<GamePage> {
               ),
 
               // SCORE BOARD
-              Padding(
-                padding: EdgeInsets.fromLTRB(0.26 * width, 0, 0, 0),
-                child: Row(children: <Widget>[
-                  //CPU SIDE
-                  buildScoreBoard("CPU", currentgame.getCpuScore()),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                //CPU SIDE
+                buildScoreBoard("CPU", currentgame.getCpuScore()),
 
-                  Container(
-                    width: 1,
-                  ),
+                Container(
+                  width: 1,
+                ),
 
-                  //player side
-                  buildScoreBoard("YOU", currentgame.getPlayerScore())
-                ]),
-              ),
+                //player side
+                buildScoreBoard("YOU", currentgame.getPlayerScore())
+              ]),
 
               //PLAYER'S HAND
               Expanded(
