@@ -1,6 +1,6 @@
 # stone_paper_scissor
 
-A stone paper scissor game app
+A stone paper scissor game app built with Flutter SDK
 
 ## Getting Started
 
